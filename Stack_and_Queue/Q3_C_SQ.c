@@ -101,9 +101,124 @@ int main()
 
 /////////////////////////////////////////////////////////////////////////////////
 
+// ListNode
+// 	int item;
+// 	struct _listnode *next;
+ 
+//  LinkedList
+// 	int size;
+// 	ListNode *head;
+// 	ListNode *tail;
+ 
+//  Stack
+// 	 LinkedList ll;
+
+
+// int isStackPairwiseConsecutive(Stack *s);
+
+// void push(Stack *s, int item);
+// int pop(Stack *s);
+// int peek(Stack *s);
+// int isEmptyStack(Stack *s);
+
+// void printList(LinkedList *ll);
+// ListNode * findNode(LinkedList *ll, int index);
+// int insertNode(LinkedList *ll, int index, int value);
+// int removeNode(LinkedList *ll, int index);
+// void removeAllItems(LinkedList *ll);
+
+
+// case 2:
+// if(isStackPairwiseConsecutive(&s))
+// {
+// 	printf("The stack is pairwise consecutive.\n");
+// }
+// else{
+// 	printf("The stack is not pairwise consecutive.\n");
+// }
+// removeAllItems(&(s.ll));
+// break;
+
+
 int isStackPairwiseConsecutive(Stack *s)
 {
-  /* add your code here */
+	if(s->ll.head == NULL)
+		return 0;
+	
+	LinkedList *new_list = malloc(sizeof(LinkedList));
+	new_list->head = NULL;
+	new_list->tail = NULL;
+	new_list->size = 0;
+
+	
+	for(int i = 0 ; i < s->ll.size ; i++)
+	{
+		ListNode *temp = malloc(sizeof(ListNode));
+		temp->item = findNode(&(s->ll), i)->item;
+		temp->next = NULL;
+
+		if (new_list->head == NULL)
+		{
+			new_list->head = temp;
+			new_list->size++;
+		}
+		else
+		{
+			int val = new_list->head->item;
+
+			if (temp->item - 1 == val || temp->item + 1 == val)
+			{
+				temp->next = new_list->head;
+				new_list->head = temp;
+				new_list->size++;
+			}
+			else
+			{
+				if (new_list->size == 1)
+				{
+					for (int j = 0; j < new_list->size-1 ; j++)
+					{
+						ListNode *y = new_list->head;
+						new_list->head = new_list->head->next;
+
+						free(y);
+					}
+					free(new_list->head);				
+					free(new_list);
+					free(temp);
+					
+					return 0;
+				}
+				else
+				{
+					for (int j = 0; j < new_list->size-1 ; j++)
+					{
+						ListNode *y = new_list->head;
+						new_list->head = new_list->head->next;
+
+						free(y);
+					}
+					free(new_list->head);
+					
+					new_list->head = temp;
+					new_list->size = 1;
+				}
+			}
+		}
+		
+	}
+
+	for (int j = 0; j < new_list->size-1 ; j++)
+	{
+		ListNode *y = new_list->head;
+		new_list->head = new_list->head->next;
+
+		free(y);
+	}
+	free(new_list->head);
+	free(new_list);
+	
+	return 1;
 }
 
 //////////////////////////////////////////////////////////////////////////////////
