@@ -186,17 +186,6 @@ void createQueueFromLinkedList(LinkedList *ll, Queue *q)
 		new_list->size++;
 
 	}
-
-	// for(int i = 0; i < ll->size-1; i++)
-	// {
-	// 	ListNode *y = ll->head;
-	// 	ll->head = ll->head->next;
-
-	// 	free(y);
-	// }
-
-	// free(ll->head);
-
 	q->ll.head = new_list->head;
 	q->ll.size = new_list->size;
 

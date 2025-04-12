@@ -110,9 +110,68 @@ int main()
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
+
+// ListNode
+// 	int item;
+// 	struct _listnode *next;
+ 
+//  LinkedList
+// 	int size;
+// 	ListNode *head;
+// 	ListNode *tail;
+//  -> tail 안쓰는데 왜 있는겨
+
+
+//  Stack
+// 	 LinkedList ll;
+  
+//  Queue
+// 	 LinkedList ll;
+ 
+ 
+//  void reverse(Queue *q);
+ 
+//  void push(Stack *s, int item);
+//  int pop(Stack *s);
+//  int peek(Stack *s);
+//  int isEmptyStack(Stack *s);
+ 
+//  void enqueue(Queue *q, int item);
+//  int dequeue(Queue *q);
+//  int isEmptyQueue(Queue *s);
+ 
+//  void printList(LinkedList *ll);
+//  ListNode * findNode(LinkedList *ll, int index);
+//  int insertNode(LinkedList *ll, int index, int value);
+//  int removeNode(LinkedList *ll, int index);
+//  void removeAllItems(LinkedList *ll);
+
+
 void reverse(Queue *q)
 {
-/* add your code here */
+	if (q == NULL)
+		return;
+
+		
+	ListNode *prev;
+	ListNode *cur = q->ll.head;
+		
+	while (cur->next != NULL)
+		cur = cur->next;
+		
+	ListNode *dummy = cur; 
+	
+	for(int i = q->ll.size-2 ; i >= 0;i--)
+	{
+		prev = findNode(&(q->ll), i);
+		
+		cur->next = prev;
+		cur = cur->next;
+	}
+
+	cur->next = NULL;
+	q->ll.head = dummy;
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
