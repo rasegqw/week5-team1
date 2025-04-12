@@ -168,7 +168,7 @@ int identical(BTNode *tree1, BTNode *tree2)
 
     // 왼쪽과 오른쪽 모두 재귀적으로 확인
     return identical(tree1->left, tree2->left) &&
-           identical(tree1->right, tree2->right);
+            identical(tree1->right, tree2->right);
 }
 
 
