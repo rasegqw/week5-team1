@@ -129,7 +129,6 @@ static int num = 0;
 
 int sumOfOddNodes(BTNode *node)
 {
-
     // ver1. Static 변수 이용.
     // if (node == NULL)
     //     return 0;
@@ -144,6 +143,7 @@ int sumOfOddNodes(BTNode *node)
 
     // return num;
 
+    
     // ver2. return 재귀 이용.
     if (node == NULL)
         return 0;
