@@ -100,11 +100,61 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
-int sumOfOddNodes(BTNode *node)
+// StackNode
+//     BTNode *btnode;
+//     struct _stackNode *next;
 
+// Stack
+//     StackNode *top;
+
+
+// int sumOfOddNodes(BTNode *root);
+
+// BTNode *createBTNode(int item);
+
+// BTNode *createTree();
+// void push( Stack *stack, BTNode *node);
+// BTNode* pop(Stack *stack);
+
+// void printTree(BTNode *node);
+// void removeAll(BTNode **node);
+
+// case 2:
+//  oddValueCount = sumOfOddNodes(root);
+//  printf("The sum of all odd numbers in the binary tree is: %d.\n",oddValueCount);
+//  removeAll(&root);
+//  break;
+
+static int num = 0;
+
+int sumOfOddNodes(BTNode *node)
 {
-    /* add your code here */
+
+    // ver1. Static 변수 이용.
+    // if (node == NULL)
+    //     return 0;
+
+    // if (node->item%2 != 0)
+    //     num += node->item;
+
+    // if (node->left != NULL)
+    //     sumOfOddNodes(node->left);
+    // if (node->right != NULL)
+    //     sumOfOddNodes(node->right);
+
+    // return num;
+
+    // ver2. return 재귀 이용.
+    if (node == NULL)
+        return 0;
+
+    if (node->item%2 != 0)
+        return node->item + sumOfOddNodes(node->left) + sumOfOddNodes(node->right);
+    else
+        return sumOfOddNodes(node->left) + sumOfOddNodes(node->right);
 }
+
+
 
 //////////////////////////////////////////////////////////////////////////////////
 
