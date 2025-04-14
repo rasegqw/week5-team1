@@ -86,10 +86,110 @@ int main()
 
 ////////////////////////////////////////////////////////////////////////
 
+
+// ListNode
+// 	int item;
+// 	struct _listnode *next;
+
+// LinkedList
+// 	int size;
+// 	ListNode *head;
+
+
+// int moveMaxToFront(ListNode **ptrHead);
+
+// void printList(LinkedList *ll);
+// void removeAllItems(LinkedList *ll);
+// ListNode * findNode(LinkedList *ll, int index);
+// int insertNode(LinkedList *ll, int index, int value);
+// int removeNode(LinkedList *ll, int index);
+
+
+// int moveMaxToFront(ListNode **ptrHead)
+// {
+// 	LinkedList *new_list = malloc(sizeof(LinkedList));
+// 	ListNode *new_Node = malloc(sizeof(ListNode));
+
+// 	new_Node->item = (*ptrHead)->item;
+// 	new_Node->next = NULL;
+
+// 	new_list->head = new_Node;
+// 	new_list->size = 1;
+
+// 	ListNode *list_cur = new_list->head;
+// 	ListNode *cur = (*ptrHead)->next;
+// 	ListNode *prev = (*ptrHead)->next;
+
+// 	while (prev->next != NULL)
+// 	{
+// 		cur = *ptrHead;
+
+// 		prev = cur;
+// 		cur = cur->next;
+// 		prev->next = cur->next;
+
+// 		if (cur->item > new_list->head->item)
+// 		{
+// 			cur->next = new_list->head;
+// 			new_list->head = cur;
+// 		}
+// 		else
+// 		{
+// 			while (list_cur->next != NULL && cur->item < list_cur->next->item)
+// 				list_cur = list_cur->next;
+
+// 			cur->next = list_cur->next;	
+// 			list_cur->next = cur;
+				
+// 		}
+
+// 		new_list->size++;
+// 		list_cur = new_list->head;
+		
+// 	}
+	
+// 	*ptrHead = &(*new_list->head);
+
+
+// 	free(new_list);
+
+// 	return 0;
+
+// }
+
 int moveMaxToFront(ListNode **ptrHead)
 {
-    /* add your code here */
+	if (*ptrHead == NULL || (*ptrHead)->next == NULL)
+		return 0;
+
+	ListNode *newHead = NULL;
+	ListNode *cur = *ptrHead;
+
+	while (cur != NULL) {
+		ListNode *next = cur->next;
+
+		if (newHead == NULL || cur->item > newHead->item) {
+			cur->next = newHead;
+			newHead = cur;
+		} 
+		else
+		{
+			ListNode *temp = newHead;
+			while (temp->next != NULL && temp->next->item > cur->item)
+				temp = temp->next;
+			
+			cur->next = temp->next;
+			temp->next = cur;
+		}
+		cur = next;
+	}
+
+	*ptrHead = newHead;
+
+	return 1;
 }
+
+
 
 //////////////////////////////////////////////////////////////////////////////////
 
