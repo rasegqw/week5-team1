@@ -148,7 +148,7 @@ void levelOrderTraversal(BSTNode* root)
 			enqueue(&(new_Que->head), &(new_Que->tail), cur->right);
 	}
 	
-	free(new_Node);
+	// free(new_Node);
 	free(new_Que);
 
 }

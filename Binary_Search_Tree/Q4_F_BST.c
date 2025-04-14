@@ -89,10 +89,105 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// BSTNode
+// 	int item;
+// 	struct _bstnode *left;
+// 	struct _bstnode *right;
+
+// StackNode
+// 	BSTNode *data;
+// 	struct _stackNode *next;
+
+// Stack
+// 	StackNode *top;
+
+
+// void postOrderIterativeS1(BSTNode *node);
+
+// void insertBSTNode(BSTNode **node, int value);
+
+// void push(Stack *stack, BSTNode *node);
+// BSTNode *pop(Stack *s);
+// BSTNode *peek(Stack *s);
+// int isEmpty(Stack *s);
+// void removeAll(BSTNode **node);
+
+
+// case 2:
+// printf("The resulting post-order traversal of the binary search tree is: ");
+// postOrderIterativeS1(root); // You need to code this function
+// printf("\n");
+// break;
+
+// void postOrderIterativeS1(BSTNode *root)
+// {
+	
+// 	Stack *new_Stack = malloc(sizeof(Stack));
+
+// 	push(new_Stack, root);
+	
+// 	BSTNode *cur;
+// 	BSTNode *visited;
+
+// 	while (new_Stack->top != NULL)
+// 	{
+// 		cur = peek(new_Stack);
+// 		if (cur == NULL)
+// 			pop(new_Stack);	
+// 		else if ((cur->left == NULL && cur->right == NULL) || cur == visited)
+// 		{
+// 			printf("%d ",pop(new_Stack)->item);
+// 			removeAll(&(cur));
+// 		}	
+// 		else	
+// 		{
+// 			push(new_Stack, cur->right);
+// 			push(new_Stack, cur->left);
+// 			visited = cur;
+// 		}
+			
+// 	}
+	
+// 	free(new_Stack);
+// }
+
 void postOrderIterativeS1(BSTNode *root)
 {
-	 /* add your code here */
+    if (root == NULL)
+        return;
+
+    Stack *stack = malloc(sizeof(Stack));
+    stack->top = NULL;
+
+    BSTNode *cur = root;
+    BSTNode *lastVisited = NULL;
+
+    while (!isEmpty(stack) || cur != NULL)
+    {
+        if (cur != NULL)
+        {
+            push(stack, cur);
+            cur = cur->left;
+        }
+        else
+        {
+            BSTNode *peekNode = peek(stack);
+            if (peekNode->right != NULL && lastVisited != peekNode->right)
+            {
+                cur = peekNode->right;
+            }
+            else
+            {
+                printf("%d ", peekNode->item);
+                lastVisited = pop(stack);
+            }
+        }
+    }
+
+    free(stack);
 }
+
+
 
 ///////////////////////////////////////////////////////////////////////////////
 
