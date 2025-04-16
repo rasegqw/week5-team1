@@ -107,9 +107,41 @@ int main()
 
 ////////////////////////////////////////////////////////////
 
+// ListNode
+// 	int item;
+// 	struct _listnode *next;
+
+// LinkedList
+// 	int size;
+// 	ListNode *head;
+
+// Queue
+// 	LinkedList ll;
+
+
+// void recursiveReverse(Queue *q);
+
+// // You may use the following functions or you may write your own
+// void enqueue(Queue *q, int item);
+// int dequeue(Queue *q);
+// int isEmptyQueue(Queue *q);
+// void removeAllItemsFromQueue(Queue *q);
+
+// void printList(LinkedList *ll);
+// void removeAllItems(LinkedList *ll);
+// ListNode * findNode(LinkedList *ll, int index);
+// int insertNode(LinkedList *ll, int index, int value);
+// int removeNode(LinkedList *ll, int index);
+
+
 void recursiveReverse(Queue *q)
 {
-/* add your code here */
+	if (q->ll.head == NULL)
+		return;
+
+	int temp = dequeue(q);
+	recursiveReverse(q);
+	enqueue(q, temp);
 }
 
 //////////////////////////////////////////////////////////////////
