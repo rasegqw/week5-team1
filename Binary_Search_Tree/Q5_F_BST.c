@@ -141,8 +141,6 @@ void postOrderIterativeS2(BSTNode *root)
 	{
 		printf("%d ", pop(&s2)->item);
 	}
-	
-	
 
 }
 
