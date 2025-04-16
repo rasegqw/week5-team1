@@ -272,7 +272,7 @@ int isStackPairwiseConsecutive(Stack *s)
 
 	// ver3. Stack 특성 활용
 
-    if (s->ll.head == NULL)
+    if (s->ll.head == NULL || s->ll.size % 2 != 0)
         return 0;
 
     Stack tempStack;
