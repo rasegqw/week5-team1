@@ -142,83 +142,173 @@ int main()
 
 int isStackPairwiseConsecutive(Stack *s)
 {
-	if(s->ll.head == NULL)
-		return 0;
+	// if(s->ll.head == NULL)
+	// 	return 0;
 	
-	LinkedList *new_list = malloc(sizeof(LinkedList));
-	new_list->head = NULL;
-	new_list->tail = NULL;
-	new_list->size = 0;
+	// LinkedList *new_list = malloc(sizeof(LinkedList));
+	// new_list->head = NULL;
+	// new_list->tail = NULL;
+	// new_list->size = 0;
 
 	
-	for(int i = 0 ; i < s->ll.size ; i++)
-	{
-		ListNode *temp = malloc(sizeof(ListNode));
-		temp->item = findNode(&(s->ll), i)->item;
-		temp->next = NULL;
+	// for(int i = 0 ; i < s->ll.size ; i++)
+	// {
+	// 	ListNode *temp = malloc(sizeof(ListNode));
+	// 	temp->item = findNode(&(s->ll), i)->item;
+	// 	temp->next = NULL;
 
-		if (new_list->head == NULL)
-		{
-			new_list->head = temp;
-			new_list->size++;
-		}
-		else
-		{
-			int val = new_list->head->item;
+	// 	if (new_list->head == NULL)
+	// 	{
+	// 		new_list->head = temp;
+	// 		new_list->size++;
+	// 	}
+	// 	else
+	// 	{
+	// 		int val = new_list->head->item;
 
-			if (temp->item - 1 == val || temp->item + 1 == val)
-			{
-				temp->next = new_list->head;
-				new_list->head = temp;
-				new_list->size++;
-			}
-			else
-			{
-				if (new_list->size == 1)
-				{
-					for (int j = 0; j < new_list->size-1 ; j++)
-					{
-						ListNode *y = new_list->head;
-						new_list->head = new_list->head->next;
+	// 		if (temp->item - 1 == val || temp->item + 1 == val)
+	// 		{
+	// 			temp->next = new_list->head;
+	// 			new_list->head = temp;
+	// 			new_list->size++;
+	// 		}
+	// 		else
+	// 		{
+	// 			if (new_list->size == 1)
+	// 			{
+	// 				for (int j = 0; j < new_list->size-1 ; j++)
+	// 				{
+	// 					ListNode *y = new_list->head;
+	// 					new_list->head = new_list->head->next;
 
-						free(y);
-					}
-					free(new_list->head);				
-					free(new_list);
-					free(temp);
+	// 					free(y);
+	// 				}
+	// 				free(new_list->head);				
+	// 				free(new_list);
+	// 				free(temp);
 					
-					return 0;
-				}
-				else
-				{
-					for (int j = 0; j < new_list->size-1 ; j++)
-					{
-						ListNode *y = new_list->head;
-						new_list->head = new_list->head->next;
+	// 				return 0;
+	// 			}
+	// 			else
+	// 			{
+	// 				for (int j = 0; j < new_list->size-1 ; j++)
+	// 				{
+	// 					ListNode *y = new_list->head;
+	// 					new_list->head = new_list->head->next;
 
-						free(y);
-					}
-					free(new_list->head);
+	// 					free(y);
+	// 				}
+	// 				free(new_list->head);
 					
-					new_list->head = temp;
-					new_list->size = 1;
-				}
-			}
-		}
+	// 				new_list->head = temp;
+	// 				new_list->size = 1;
+	// 			}
+	// 		}
+	// 	}
 		
-	}
+	// }
 
-	for (int j = 0; j < new_list->size-1 ; j++)
-	{
-		ListNode *y = new_list->head;
-		new_list->head = new_list->head->next;
+	// for (int j = 0; j < new_list->size-1 ; j++)
+	// {
+	// 	ListNode *y = new_list->head;
+	// 	new_list->head = new_list->head->next;
 
-		free(y);
-	}
-	free(new_list->head);
-	free(new_list);
+	// 	free(y);
+	// }
+	// free(new_list->head);
+	// free(new_list);
 	
-	return 1;
+	// return 1;
+
+
+	// ver2. 좀 더 짧아지긴 했지만, 스택의 특성을 잘 사용하진 못함.
+
+	// if (s->ll.head == NULL)
+	// 	return 0;
+
+	// LinkedList *new_list = malloc(sizeof(LinkedList));
+	// new_list->head = NULL;
+	// new_list->size = 0;
+	// new_list->tail = NULL;
+
+	// while (s->ll.head != NULL)
+	// {
+	// 	int temp = pop(s);
+		
+	// 	if (new_list->size == 0)
+	// 		insertNode(new_list, 0, temp);
+	// 	else
+	// 	{
+	// 		ListNode *cur = new_list->head;
+	// 		while (cur->next != NULL)
+	// 			cur = cur->next;
+			
+	// 		if (cur->item - temp == 1 || cur->item - temp == -1)
+	// 			insertNode(new_list, new_list->size, temp);
+			
+	// 		else {
+	// 			if (new_list->size % 2 == 0)
+	// 				insertNode(new_list, new_list->size, temp);
+	// 			else
+	// 			{
+	// 				removeAllItems(new_list);
+	// 				free(new_list);					
+	// 				return 0;
+	// 			}				
+	// 		}
+	// 	}
+	// }
+
+	// int res = new_list->size % 2;
+
+	// removeAllItems(new_list);
+	// free(new_list);
+
+	// if (res)
+	// 	return 0;
+	// else
+	// 	return 1;
+
+
+	// ver3. Stack 특성 활용
+
+    if (s->ll.head == NULL)
+        return 0;
+
+    Stack tempStack;
+    tempStack.ll.head = NULL;
+    tempStack.ll.size = 0;
+
+    int pairwise = 1;
+
+    while (!isEmptyStack(s))
+    {
+        int first = pop(s);
+        int second = pop(s);
+
+        if (abs(first - second) != 1)
+        {
+			pairwise = 0;
+
+			push(&tempStack, first);
+			push(&tempStack, second);
+
+			break;
+		}    
+
+
+        push(&tempStack, first);
+        push(&tempStack, second);
+    }
+
+    // 원래 스택 복구
+    while (!isEmptyStack(&tempStack))
+    {
+        push(s, pop(&tempStack));
+    }
+
+    return pairwise;
+	
 }
 
 //////////////////////////////////////////////////////////////////////////////////

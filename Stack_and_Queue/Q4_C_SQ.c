@@ -149,28 +149,51 @@ int main()
 
 void reverse(Queue *q)
 {
-	if (q == NULL)
-		return;
+	// ver1. not use Stack
 
+	// if (q->ll.head == NULL)
+	// 	return;
 		
-	ListNode *prev;
-	ListNode *cur = q->ll.head;
+	// ListNode *prev;
+	// ListNode *cur = q->ll.head;
 		
-	while (cur->next != NULL)
-		cur = cur->next;
+	// while (cur->next != NULL)
+	// 	cur = cur->next;
 		
-	ListNode *dummy = cur; 
+	// ListNode *dummy = cur; 
 	
-	for(int i = q->ll.size-2 ; i >= 0;i--)
-	{
-		prev = findNode(&(q->ll), i);
+	// for(int i = q->ll.size-2 ; i >= 0;i--)
+	// {
+	// 	prev = findNode(&(q->ll), i);
 		
-		cur->next = prev;
-		cur = cur->next;
-	}
+	// 	cur->next = prev;
+	// 	cur = cur->next;
+	// }
 
-	cur->next = NULL;
-	q->ll.head = dummy;
+	// cur->next = NULL;
+	// q->ll.head = dummy;
+
+
+	// ver2. use Stack
+
+	if (q->ll.head == NULL)
+		return;
+	
+	Stack *new_stack = malloc(sizeof(Stack));
+
+	new_stack->ll.head = NULL;
+	new_stack->ll.size = 0;
+	new_stack->ll.tail = NULL;
+
+	while (q->ll.head != NULL)
+	{
+		int temp = dequeue(q);
+		push(new_stack, temp);
+	}
+	
+	q->ll = new_stack->ll;
+
+	free(new_stack);
 
 }
 
