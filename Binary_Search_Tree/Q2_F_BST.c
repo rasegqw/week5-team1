@@ -88,9 +88,63 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// BSTNode
+// 	int item;
+// 	struct _bstnode *left;
+// 	struct _bstnode *right;
+
+// StackNode
+// 	BSTNode *data;
+// 	struct _stackNode *next;
+
+// Stack
+// 	StackNode *top;
+
+
+// void inOrderTraversal(BSTNode *node);
+
+// void insertBSTNode(BSTNode **node, int value);
+
+// void push(Stack *stack, BSTNode *node);
+// BSTNode *pop(Stack *s);
+// BSTNode *peek(Stack *s);
+// int isEmpty(Stack *s);
+// void removeAll(BSTNode **node);
+
+
 void inOrderTraversal(BSTNode *root)
 {
-	 /* add your code here */
+
+	// ver1. not use Stack
+
+	// if (root == NULL)
+	// 	return;
+
+	// inOrderTraversal(root->left);
+	// printf("%d ", root->item);
+	// inOrderTraversal(root->right);
+
+
+	// ver2. use Stack
+
+	Stack s;
+	s.top = NULL;
+
+	BSTNode *cur = root;
+	
+	while (cur != NULL || s.top != NULL)
+	{
+		while (cur != NULL)
+		{
+			push(&s, cur);
+			cur = cur->left;
+		}
+	
+		cur = pop(&s);
+		printf("%d ", cur->item);
+	
+		cur = cur->right;
+	}
 }
 
 ///////////////////////////////////////////////////////////////////////////////

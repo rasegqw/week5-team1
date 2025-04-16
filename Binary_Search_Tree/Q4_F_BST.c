@@ -119,72 +119,73 @@ int main()
 // printf("\n");
 // break;
 
-// void postOrderIterativeS1(BSTNode *root)
-// {
-	
-// 	Stack *new_Stack = malloc(sizeof(Stack));
 
-// 	push(new_Stack, root);
-	
-// 	BSTNode *cur;
-// 	BSTNode *visited;
-
-// 	while (new_Stack->top != NULL)
-// 	{
-// 		cur = peek(new_Stack);
-// 		if (cur == NULL)
-// 			pop(new_Stack);	
-// 		else if ((cur->left == NULL && cur->right == NULL) || cur == visited)
-// 		{
-// 			printf("%d ",pop(new_Stack)->item);
-// 			removeAll(&(cur));
-// 		}	
-// 		else	
-// 		{
-// 			push(new_Stack, cur->right);
-// 			push(new_Stack, cur->left);
-// 			visited = cur;
-// 		}
-			
-// 	}
-	
-// 	free(new_Stack);
-// }
 
 void postOrderIterativeS1(BSTNode *root)
 {
+	// ver1.
+
+    // if (root == NULL)
+    //     return;
+
+    // Stack *stack = malloc(sizeof(Stack));
+    // stack->top = NULL;
+
+    // BSTNode *cur = root;
+    // BSTNode *lastVisited = NULL;
+
+    // while (!isEmpty(stack) || cur != NULL)
+    // {
+    //     if (cur != NULL)
+    //     {
+    //         push(stack, cur);
+    //         cur = cur->left;
+    //     }
+    //     else
+    //     {
+    //         BSTNode *peekNode = peek(stack);
+    //         if (peekNode->right != NULL && lastVisited != peekNode->right)
+    //         {
+    //             cur = peekNode->right;
+    //         }
+    //         else
+    //         {
+    //             printf("%d ", peekNode->item);
+    //             lastVisited = pop(stack);
+    //         }
+    //     }
+    // }
+
+    // free(stack);
+
+
+	// ver2.
+
     if (root == NULL)
         return;
 
-    Stack *stack = malloc(sizeof(Stack));
-    stack->top = NULL;
+    Stack s1, s2;
+    s1.top = NULL;
+    s2.top = NULL;
 
-    BSTNode *cur = root;
-    BSTNode *lastVisited = NULL;
+    push(&s1, root);
 
-    while (!isEmpty(stack) || cur != NULL)
-    {
-        if (cur != NULL)
-        {
-            push(stack, cur);
-            cur = cur->left;
-        }
-        else
-        {
-            BSTNode *peekNode = peek(stack);
-            if (peekNode->right != NULL && lastVisited != peekNode->right)
-            {
-                cur = peekNode->right;
-            }
-            else
-            {
-                printf("%d ", peekNode->item);
-                lastVisited = pop(stack);
-            }
-        }
+    while (s1.top != NULL) {
+        BSTNode *cur = pop(&s1);
+        push(&s2, cur);
+
+        if (cur->left)
+            push(&s1, cur->left);
+        if (cur->right)
+            push(&s1, cur->right);
     }
 
-    free(stack);
+    // Now s2 contains post-order in reverse
+    while (s2.top != NULL) {
+        BSTNode *cur = pop(&s2);
+        printf("%d ", cur->item);
+    }
+	
 }
 
 
