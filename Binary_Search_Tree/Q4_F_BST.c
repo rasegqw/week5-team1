@@ -159,33 +159,64 @@ void postOrderIterativeS1(BSTNode *root)
     // free(stack);
 
 
-	// ver2.
+	// ver2. Stack 두개 사용
 
-    if (root == NULL)
-        return;
+    // if (root == NULL)
+    //     return;
 
-    Stack s1, s2;
-    s1.top = NULL;
-    s2.top = NULL;
+    // Stack s1, s2;
+    // s1.top = NULL;
+    // s2.top = NULL;
 
-    push(&s1, root);
+    // push(&s1, root);
 
-    while (s1.top != NULL) {
-        BSTNode *cur = pop(&s1);
-        push(&s2, cur);
+    // while (s1.top != NULL) {
+    //     BSTNode *cur = pop(&s1);
+    //     push(&s2, cur);
 
-        if (cur->left)
-            push(&s1, cur->left);
-        if (cur->right)
-            push(&s1, cur->right);
-    }
+    //     if (cur->left)
+    //         push(&s1, cur->left);
+    //     if (cur->right)
+    //         push(&s1, cur->right);
+    // }
 
-    // Now s2 contains post-order in reverse
-    while (s2.top != NULL) {
-        BSTNode *cur = pop(&s2);
-        printf("%d ", cur->item);
-    }
+    // while (s2.top != NULL) {
+    //     BSTNode *cur = pop(&s2);
+    //     printf("%d ", cur->item);
+    // }
 	
+
+	// ver3. Stack 한개 사용
+
+	if (root == NULL)
+		return;
+
+	Stack s;
+	s.top = NULL;
+
+	BSTNode *cur = root;
+	BSTNode *lastVisited = NULL;
+
+	while (s.top != NULL || cur != NULL) {
+		if (cur != NULL)
+		{
+			push(&s, cur);
+			cur = cur->left;
+		}
+		else 
+		{
+			BSTNode *peekNode = peek(&s);
+			
+			if (peekNode->right != NULL && lastVisited != peekNode->right)
+				cur = peekNode->right;
+			else
+			{
+				printf("%d ", peekNode->item);
+				lastVisited = pop(&s);
+			}
+		}
+	}
+
 }
 
 
