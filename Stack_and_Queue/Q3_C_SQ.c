@@ -167,6 +167,7 @@ int isStackPairwiseConsecutive(Stack *s)
 				// 3. 만약 스택에서 꺼낸 수가 이전에 저장한 수와 연속하지 않는다? 	=> False (return 0)
 				else
 				{
+					// 스택을 동적 할당했기 때문에, 모두 메모리 해제 후 False
 					removeAllItems(new_list);
 					free(new_list);					
 					return 0;
@@ -175,6 +176,7 @@ int isStackPairwiseConsecutive(Stack *s)
 		}
 	}
 	
+	// False를 한번도 거치지 않고 스택의 모든 값을 확인했는데, 홀수개라면, False. 짝수면 True.
 	int res = new_list->size % 2;
 
 	removeAllItems(new_list);
@@ -184,9 +186,6 @@ int isStackPairwiseConsecutive(Stack *s)
 		return 0;
 	else
 		return 1;
-	
-
-
 
 
 	// 트러블 슈팅
@@ -261,7 +260,8 @@ int isStackPairwiseConsecutive(Stack *s)
 // 결론
 // 두가지 방법을 비교했을 때,
 // - ver1. 은 삽입할 때마다, 리스트에 가장 마지막 값과 비교하기 때문에, 리스트를 전체 순회하여 N^2의 시간 복잡도를 가짐.
-// - ver2. 는  
+// - ver2. 는 스택을 한번만 순회하면 되기 때문에, N의 시간 복잡도를 가짐.
+
 
 //////////////////////////////////////////////////////////////////////////////////
 
