@@ -100,9 +100,51 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// BTNode
+//     int item;
+//     struct _btnode *left;
+//     struct _btnode *right;
+
+// StackNode
+//     BTNode *btnode;
+//     struct _stackNode *next;
+
+// Stack
+//     StackNode *top;
+
+
+// int smallestValue(BTNode *node);
+
+// BTNode *createBTNode(int item);
+
+// BTNode *createTree();
+// void push( Stack *stack, BTNode *node);
+// BTNode* pop(Stack *stack);
+
+// void printTree(BTNode *node);
+// void removeAll(BTNode **node);
+
+// case 2:
+// value = smallestValue(root);
+// printf("Smallest value of the binary tree is: %d\n",value);
+// removeAll(&root);
+// break;
+
+
 int smallestValue(BTNode *node)
 {
-	/* add your code here */
+    static int minimum = 1<<30;
+
+    if (node == NULL)
+        return 0;
+
+    if (node->item < minimum)
+        minimum = node->item;
+    
+    smallestValue(node->left);
+    smallestValue(node->right);
+
+    return minimum;
 }
 
 //////////////////////////////////////////////////////////////////////////////////

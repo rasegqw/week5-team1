@@ -84,9 +84,114 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// typedef struct _listnode
+// {
+// 	int item;
+// 	struct _listnode *next;
+// } ListNode;			// You should not change the definition of ListNode
+
+// typedef struct _linkedlist
+// {
+// 	int size;
+// 	ListNode *head;
+// } LinkedList;			// You should not change the definition of LinkedList
+
+
+// void moveOddItemsToBack(LinkedList *ll);
+
+// void printList(LinkedList *ll);
+// void removeAllItems(LinkedList *ll);
+// ListNode * findNode(LinkedList *ll, int index);
+// int insertNode(LinkedList *ll, int index, int value);
+// int removeNode(LinkedList *ll, int index);
+
+
+// case 2:
+// moveOddItemsToBack(&ll); // You need to code this function
+// printf("The resulting linked list after moving odd integers to the back of the linked list is: ");
+// printList(&ll);
+// removeAllItems(&ll);
+// break;
+
 void moveOddItemsToBack(LinkedList *ll)
 {
-	/* add your code here */
+	if(ll->head == NULL)
+		return;
+
+	LinkedList *even = malloc(sizeof(LinkedList));
+	LinkedList *odd = malloc(sizeof(LinkedList));
+	
+	even->head = NULL;
+	even->size = 0;
+	odd->head = NULL;
+	odd->size = 0;
+
+	for(int i = 0; i<ll->size;i++)
+	{
+		ListNode *temp = findNode(ll,i);
+
+		ListNode *new_Node = malloc(sizeof(ListNode));
+
+		new_Node->item = temp->item;
+		new_Node->next = NULL;
+
+		if (temp->item % 2 == 0)
+		{
+			if(even->head == NULL)
+				even->head = new_Node;
+			else
+			{
+				ListNode *j = even->head;
+				while (j->next != NULL)
+					j = j->next;
+				
+				j->next = new_Node;
+			}
+			
+			even->size++;
+		}
+		else{		// 홀수일 때,
+			if(odd->head == NULL)
+				odd->head = new_Node;
+			else
+			{
+				ListNode *j = odd->head;
+				while (j->next != NULL)
+					j = j->next;
+				
+				j->next = new_Node;
+			}
+
+			odd->size++;
+		}
+	}
+
+	if(even->head == NULL)
+		return;
+	else if(odd->head == NULL)
+		return;
+	
+	ListNode *last_even = findNode(even,even->size-1);
+	ListNode *first_odd = findNode(odd, 0);
+	
+	last_even->next = first_odd;
+	even->size += odd->size;
+
+	for(int x = 0; x<ll->size-1; x++)
+	{
+		ListNode *y = ll->head;
+		ll->head = ll->head->next;
+
+		free(y);
+	}
+	free(ll->head);
+
+	ll->head = even->head;
+	ll->size = even->size;
+
+	free(even);
+	free(odd);
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////

@@ -111,14 +111,123 @@ int main()
 
 //////////////////////////////////////////////////////////////////////////////////
 
+// ListNode
+// 	int item;
+// 	struct _listnode *next;
+
+// LinkedList
+// 	int size;
+// 	ListNode *head;
+
+// Stack
+// 	LinkedList ll;
+
+
+// void createStackFromLinkedList(LinkedList *ll , Stack *stack);
+// void removeEvenValues(Stack *s);
+
+// void push(Stack *s , int item);
+// int pop(Stack *s);
+// int isEmptyStack(Stack *s);
+// void removeAllItemsFromStack(Stack *s);
+
+// void printList(LinkedList *ll);
+// ListNode * findNode(LinkedList *ll, int index);
+// int insertNode(LinkedList *ll, int index, int value);
+// int removeNode(LinkedList *ll, int index);
+// void removeAllItems(LinkedList *ll);
+
+// case 2:
+// createStackFromLinkedList(&ll, &s); // You need to code this function
+// printf("The resulting stack is: ");
+// printList(&(s.ll));
+// break;
+// case 3:
+// removeEvenValues(&s); // You need to code this function
+// printf("The resulting stack after removing even integers is: ");
+// printList(&(s.ll));
+// removeAllItemsFromStack(&s);
+// removeAllItems(&ll);
+// break;
+
+
 void createStackFromLinkedList(LinkedList *ll, Stack *s)
 {
-    /* add your code here */
+	if(ll->head == NULL)
+		return;
+	
+	LinkedList *new_list = malloc(sizeof(LinkedList));
+	new_list->head = NULL;
+	new_list->size = 0;
+
+	for(int i = 0 ; i < ll->size ; i++)
+	{
+		ListNode *new_Node = malloc(sizeof(ListNode));
+		new_Node->item = findNode(ll, i)->item;
+		new_Node->next = NULL;
+
+		if(new_list->head == NULL)
+			new_list->head = new_Node;
+		else
+		{
+			new_Node->next = new_list->head;
+			new_list->head = new_Node;
+		}
+		
+		new_list->size++;
+	}
+
+	s->ll.head = new_list->head;
+	s->ll.size = new_list->size;
+
+	free(new_list);
 }
 
 void removeEvenValues(Stack *s)
 {
-	/* add your code here */
+	if(s->ll.head == NULL)
+		return;
+
+	LinkedList *new_list = malloc(sizeof(LinkedList));
+	new_list->head = NULL;
+	new_list->size = 0;
+
+	for(int i = 0; i<s->ll.size;i++)
+	{
+		int val = findNode(&(s->ll), i)->item;
+
+		if(val%2 !=0)
+		{
+			ListNode *new_Node = malloc(sizeof(ListNode));
+			new_Node->item = val;
+			new_Node->next = NULL;
+
+			if (new_list->head == NULL)
+				new_list->head = new_Node;
+			else
+			{
+				new_Node->next = new_list->head;
+				new_list->head = new_Node;
+			}
+
+			new_list->size++;
+		}
+	}
+
+	for(int i = 0; i<s->ll.size-1;i++)
+	{
+		ListNode *y = s->ll.head;
+		s->ll.head = s->ll.head->next;
+
+		free(y);
+	}
+	
+	free(s->ll.head);
+
+	s->ll.head = new_list->head;
+	s->ll.size = new_list->size;
+
+	free(new_list);
 }
 
 //////////////////////////////////////////////////////////////////////////////////
