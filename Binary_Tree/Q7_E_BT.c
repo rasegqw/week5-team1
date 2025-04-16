@@ -130,10 +130,11 @@ int main()
 // removeAll(&root);
 // break;
 
-static int minimum = 1<<30;
 
 int smallestValue(BTNode *node)
 {
+    static int minimum = 1<<30;
+
     if (node == NULL)
         return 0;
 

@@ -137,7 +137,7 @@ int hasGreatGrandchild(BTNode *node)
     int maxDepth = (leftDepth > rightDepth) ? leftDepth : rightDepth;
 
     maxDepth++;
-    // 현재 노드의 서브트리 최대 깊이가 3 이상이면 great-grandchild 존재
+
     if (maxDepth >= 3)
         printf("%d ", node->item);
 
